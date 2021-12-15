@@ -1,4 +1,6 @@
-using System;
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace LouVuiDateCode
 {
@@ -12,8 +14,18 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateEarly1980Code(uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #1-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (manufacturingYear < 1980 || manufacturingYear > 1989)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            if (manufacturingMonth < 1 || manufacturingMonth > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
+            }
+
+            return manufacturingYear.ToString(CultureInfo.InvariantCulture)[2..] +
+                   manufacturingMonth.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -23,8 +35,13 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateEarly1980Code(DateTime manufacturingDate)
         {
-            // TODO #1-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (manufacturingDate < new DateTime(1980, 1, 1) || manufacturingDate > new DateTime(1989, 12, 31))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            return manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2..] +
+                   manufacturingDate.Month.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -36,8 +53,28 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateLate1980Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #2-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingYear < 1980 || manufacturingYear > 1989)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            if (manufacturingMonth < 1 || manufacturingMonth > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
+            }
+
+            return manufacturingYear.ToString(CultureInfo.InvariantCulture)[2..] +
+                   manufacturingMonth.ToString(CultureInfo.InvariantCulture) + factoryLocationCode.ToUpperInvariant();
         }
 
         /// <summary>
@@ -48,8 +85,24 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string GenerateLate1980Code(string factoryLocationCode, DateTime manufacturingDate)
         {
-            // TODO #2-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingDate < new DateTime(1980, 1, 1) || manufacturingDate > new DateTime(1989, 12, 31))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            return manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2..] +
+                   manufacturingDate.Month.ToString(CultureInfo.InvariantCulture) +
+                   factoryLocationCode.ToUpperInvariant();
         }
 
         /// <summary>
@@ -61,8 +114,31 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate1990Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingMonth)
         {
-            // TODO #3-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingYear < 1990 || manufacturingYear > 2006)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            if (manufacturingMonth < 1 || manufacturingMonth > 12)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
+            }
+
+            return factoryLocationCode.ToUpperInvariant() +
+                   manufacturingMonth.ToString("00", CultureInfo.InvariantCulture)[0] +
+                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[2] +
+                   manufacturingMonth.ToString("00", CultureInfo.InvariantCulture)[1] +
+                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[3];
         }
 
         /// <summary>
@@ -73,8 +149,26 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate1990Code(string factoryLocationCode, DateTime manufacturingDate)
         {
-            // TODO #3-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingDate < new DateTime(1990, 1, 1) || manufacturingDate > new DateTime(2006, 12, 31))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            return factoryLocationCode.ToUpperInvariant() +
+                   manufacturingDate.Month.ToString("00", CultureInfo.InvariantCulture)[0] +
+                   manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2] +
+                   manufacturingDate.Month.ToString("00", CultureInfo.InvariantCulture)[1] +
+                   manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[3];
         }
 
         /// <summary>
@@ -86,8 +180,33 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate2007Code(string factoryLocationCode, uint manufacturingYear, uint manufacturingWeek)
         {
-            // TODO #4-1. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingYear < 2007)
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingYear));
+            }
+
+            Calendar calendar = CultureInfo.InvariantCulture.Calendar;
+
+            if (manufacturingWeek < 1 || manufacturingWeek > calendar.GetWeekOfYear(new DateTime((int)manufacturingYear, 12, 31), CalendarWeekRule.FirstFullWeek, DayOfWeek.Thursday))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingWeek));
+            }
+
+            return factoryLocationCode.ToUpperInvariant() +
+                   manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[0] +
+                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[2] +
+                   manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[1] +
+                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[3];
         }
 
         /// <summary>
@@ -98,8 +217,30 @@ namespace LouVuiDateCode
         /// <returns>A generated date code.</returns>
         public static string Generate2007Code(string factoryLocationCode, DateTime manufacturingDate)
         {
-            // TODO #4-2. Analyze unit tests for the method, and add the method implementation.
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(factoryLocationCode))
+            {
+                throw new ArgumentNullException(nameof(factoryLocationCode));
+            }
+
+            if (!new Regex(@"^\D{2}$").IsMatch(factoryLocationCode))
+            {
+                throw new ArgumentException("factoryLocationCode is wrong!", nameof(factoryLocationCode));
+            }
+
+            if (manufacturingDate < new DateTime(2007, 1, 1))
+            {
+                throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
+            }
+
+            Calendar calendar = CultureInfo.InvariantCulture.Calendar;
+
+            int manufacturingWeek = calendar.GetWeekOfYear(manufacturingDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            return factoryLocationCode.ToUpperInvariant() +
+                  manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[0] +
+                  manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2] +
+                  manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[1] +
+                  manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[3];
         }
     }
 }
