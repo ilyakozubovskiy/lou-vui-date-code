@@ -236,6 +236,12 @@ namespace LouVuiDateCode
 
             int manufacturingWeek = calendar.GetWeekOfYear(manufacturingDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 
+            if ((manufacturingDate.Day == 1 || manufacturingDate.Day == 2 || manufacturingDate.Day == 3) &&
+                (manufacturingDate.DayOfWeek == DayOfWeek.Friday || manufacturingDate.DayOfWeek == DayOfWeek.Saturday || manufacturingDate.DayOfWeek == DayOfWeek.Sunday))
+            {
+                manufacturingDate = manufacturingDate.AddYears(-1);
+            }
+
             return factoryLocationCode.ToUpperInvariant() +
                   manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[0] +
                   manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2] +
