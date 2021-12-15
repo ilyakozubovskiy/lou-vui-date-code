@@ -22,8 +22,8 @@ namespace LouVuiDateCode
                 throw new ArgumentNullException(nameof(dateCode));
             }
 
-            bool x = uint.TryParse("19" + dateCode[..2], out manufacturingYear)
-                | uint.TryParse(dateCode[2..], out manufacturingMonth);
+            uint.TryParse("19" + dateCode[..2], out manufacturingYear);
+            uint.TryParse(dateCode[2..], out manufacturingMonth);
 
             if (manufacturingYear < 1980 || manufacturingYear > 1989 || manufacturingMonth < 1 || manufacturingMonth > 12)
             {
@@ -51,8 +51,8 @@ namespace LouVuiDateCode
                 throw new ArgumentNullException(nameof(dateCode));
             }
 
-            bool x = uint.TryParse("19" + dateCode[..2], out manufacturingYear)
-                | uint.TryParse(dateCode[2..^2], out manufacturingMonth);
+            uint.TryParse("19" + dateCode[..2], out manufacturingYear);
+            uint.TryParse(dateCode[2..^2], out manufacturingMonth);
 
             factoryLocationCode = dateCode[^2..];
             factoryLocationCountry = CountryParser.GetCountry(factoryLocationCode);
@@ -93,8 +93,8 @@ namespace LouVuiDateCode
             factoryLocationCountry = CountryParser.GetCountry(factoryLocationCode);
             string century = dateCode[3] == '0' ? "20" : "19";
 
-            bool x = uint.TryParse(century + dateCode[3] + dateCode[5], out manufacturingYear)
-                | uint.TryParse(string.Empty + dateCode[2] + dateCode[4], out manufacturingMonth);
+            uint.TryParse(century + dateCode[3] + dateCode[5], out manufacturingYear);
+            uint.TryParse(string.Empty + dateCode[2] + dateCode[4], out manufacturingMonth);
 
             if (manufacturingYear < 1990 || manufacturingYear > 2006 || manufacturingMonth < 1 ||
                 manufacturingMonth > 12 || factoryLocationCountry.Length == 0)
@@ -131,8 +131,8 @@ namespace LouVuiDateCode
             factoryLocationCode = dateCode[..2];
             factoryLocationCountry = CountryParser.GetCountry(factoryLocationCode);
 
-            bool x = uint.TryParse("20" + dateCode[3] + dateCode[5], out manufacturingYear)
-                | uint.TryParse(string.Empty + dateCode[2] + dateCode[4], out manufacturingWeek);
+            uint.TryParse("20" + dateCode[3] + dateCode[5], out manufacturingYear);
+            uint.TryParse(string.Empty + dateCode[2] + dateCode[4], out manufacturingWeek);
 
             Calendar calendar = CultureInfo.InvariantCulture.Calendar;
 
