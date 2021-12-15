@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CA1806
+
 namespace LouVuiDateCode
 {
     public static class DateCodeParser
