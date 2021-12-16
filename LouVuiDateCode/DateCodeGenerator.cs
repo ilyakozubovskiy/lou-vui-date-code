@@ -24,8 +24,10 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
             }
 
-            return manufacturingYear.ToString(CultureInfo.InvariantCulture)[2..] +
-                   manufacturingMonth.ToString(CultureInfo.InvariantCulture);
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
+            return manufacturingYear.ToString(culture)[2..] +
+                   manufacturingMonth.ToString(culture);
         }
 
         /// <summary>
@@ -40,8 +42,10 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
             }
 
-            return manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2..] +
-                   manufacturingDate.Month.ToString(CultureInfo.InvariantCulture);
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
+            return manufacturingDate.Year.ToString(culture)[2..] +
+                   manufacturingDate.Month.ToString(culture);
         }
 
         /// <summary>
@@ -73,8 +77,10 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
             }
 
-            return manufacturingYear.ToString(CultureInfo.InvariantCulture)[2..] +
-                   manufacturingMonth.ToString(CultureInfo.InvariantCulture) + factoryLocationCode.ToUpperInvariant();
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
+            return manufacturingYear.ToString(culture)[2..] +
+                   manufacturingMonth.ToString(culture) + factoryLocationCode.ToUpperInvariant();
         }
 
         /// <summary>
@@ -100,8 +106,10 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
             }
 
-            return manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2..] +
-                   manufacturingDate.Month.ToString(CultureInfo.InvariantCulture) +
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
+            return manufacturingDate.Year.ToString(culture)[2..] +
+                   manufacturingDate.Month.ToString(culture) +
                    factoryLocationCode.ToUpperInvariant();
         }
 
@@ -134,11 +142,13 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingMonth));
             }
 
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
             return factoryLocationCode.ToUpperInvariant() +
-                   manufacturingMonth.ToString("00", CultureInfo.InvariantCulture)[0] +
-                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[2] +
-                   manufacturingMonth.ToString("00", CultureInfo.InvariantCulture)[1] +
-                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[3];
+                   manufacturingMonth.ToString("00", culture)[0] +
+                   manufacturingYear.ToString(culture)[2] +
+                   manufacturingMonth.ToString("00", culture)[1] +
+                   manufacturingYear.ToString(culture)[3];
         }
 
         /// <summary>
@@ -164,11 +174,13 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingDate));
             }
 
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
             return factoryLocationCode.ToUpperInvariant() +
-                   manufacturingDate.Month.ToString("00", CultureInfo.InvariantCulture)[0] +
-                   manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2] +
-                   manufacturingDate.Month.ToString("00", CultureInfo.InvariantCulture)[1] +
-                   manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[3];
+                   manufacturingDate.Month.ToString("00", culture)[0] +
+                   manufacturingDate.Year.ToString(culture)[2] +
+                   manufacturingDate.Month.ToString("00", culture)[1] +
+                   manufacturingDate.Year.ToString(culture)[3];
         }
 
         /// <summary>
@@ -202,11 +214,13 @@ namespace LouVuiDateCode
                 throw new ArgumentOutOfRangeException(nameof(manufacturingWeek));
             }
 
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
             return factoryLocationCode.ToUpperInvariant() +
-                   manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[0] +
-                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[2] +
-                   manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[1] +
-                   manufacturingYear.ToString(CultureInfo.InvariantCulture)[3];
+                   manufacturingWeek.ToString("00", culture)[0] +
+                   manufacturingYear.ToString(culture)[2] +
+                   manufacturingWeek.ToString("00", culture)[1] +
+                   manufacturingYear.ToString(culture)[3];
         }
 
         /// <summary>
@@ -236,17 +250,20 @@ namespace LouVuiDateCode
 
             int manufacturingWeek = calendar.GetWeekOfYear(manufacturingDate, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
 
-            if ((manufacturingDate.Day == 1 || manufacturingDate.Day == 2 || manufacturingDate.Day == 3) &&
-                (manufacturingDate.DayOfWeek == DayOfWeek.Friday || manufacturingDate.DayOfWeek == DayOfWeek.Saturday || manufacturingDate.DayOfWeek == DayOfWeek.Sunday))
+            if ((manufacturingDate.Month == 1) && manufacturingDate.Day <= 3 &&
+                (manufacturingDate.DayOfWeek == DayOfWeek.Friday ||
+                manufacturingDate.DayOfWeek == DayOfWeek.Saturday || manufacturingDate.DayOfWeek == DayOfWeek.Sunday))
             {
                 manufacturingDate = manufacturingDate.AddYears(-1);
             }
 
+            CultureInfo culture = CultureInfo.InvariantCulture;
+
             return factoryLocationCode.ToUpperInvariant() +
-                  manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[0] +
-                  manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[2] +
-                  manufacturingWeek.ToString("00", CultureInfo.InvariantCulture)[1] +
-                  manufacturingDate.Year.ToString(CultureInfo.InvariantCulture)[3];
+                  manufacturingWeek.ToString("00", culture)[0] +
+                  manufacturingDate.Year.ToString(culture)[2] +
+                  manufacturingWeek.ToString("00", culture)[1] +
+                  manufacturingDate.Year.ToString(culture)[3];
         }
     }
 }
